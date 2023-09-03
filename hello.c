@@ -34,3 +34,6 @@ int main(){
         printf("%d ",nums[i]);
     }
 }
+
+2.  Insertion Sort:
+
