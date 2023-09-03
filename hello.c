@@ -2,6 +2,8 @@
 int main(){
     printf("hello");
 }*/
+Sorting and Search Algorithms
+1. Bubble Sort:
 //bubble sort
 #include<stdio.h>
 #include<stdlib.h>
