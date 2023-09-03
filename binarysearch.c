@@ -1,4 +1,5 @@
 // binary search using recursion
+/*
 #include<stdio.h>
 #include<stdlib.h>
 int binarysearch(int *arr,int start,int end,int target){
@@ -17,6 +18,39 @@ int binarysearch(int *arr,int start,int end,int target){
             return binarysearch(arr,mid+1,end,target);
         }
     }
+}
+int main(){
+    int n;
+    printf("Enter the number of elements:");
+    scanf("%d",&n);
+    int *nums =(int*)malloc(n*sizeof(int));
+    for(int i=0;i<n;i++){
+        scanf("%d",&nums[i]);
+    }
+    int target;
+    printf("Enter the target:");
+    scanf("%d",&target);
+    printf("%d",binarysearch(nums,0,n-1,target));
+}
+*/
+
+// binary search using iteration
+#include<stdio.h>
+#include<stdlib.h>
+int binarysearch(int *arr,int start,int end,int target){
+    while(start<end){
+        int mid =(start +end)/2;
+        if(arr[mid]==target){
+            return mid;
+        }
+        else if(arr[mid]<target){
+            start=mid+1;
+        }
+        else{
+            end=mid-1;
+        }
+    }
+    return -1;
 }
 int main(){
     int n;
