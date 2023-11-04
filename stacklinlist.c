@@ -27,14 +27,15 @@ void display(struct node* top){
         }
     }
 }
+// insert at beginning
 void push(int x){
     struct node* new= createNode(x);
     new->next=top;
     top=new;
     printf("\nPushed Succesfully\n");
 }
-
-void pop(){
+// delete at beginning
+struct node* pop(){
     if(top==NULL){
         printf("\nUnderflow");
     }else{
@@ -42,6 +43,7 @@ void pop(){
         top=top->next;
         free(temp);
         printf("\nPopped Succesfully\n");
+        return top;
     }
 }
 
