@@ -55,20 +55,21 @@ void peek(){
     }
 }
 int main(){
-    //struct node* top=NULL;
+    struct node* top=NULL;
     push(2);
     push(3);
     push(4);
     push(5);
     push(6);
     push(7);
-    pop();
+    top=pop();
     display(top);
-    pop();
+    top=pop();
     peek();
     push(9);
-    pop();
-    pop();
+    top=pop();
+    top=pop();
+    top=pop();
     peek();
     display(top);
     
