@@ -11,15 +11,11 @@ void insertMax(int *heap,int *size,int val){
     int i = *size;
     heap[i] = val;
     (*size)++;
-
-    // Adjust the heap by comparing the new value with its parent
     while (i > 0 && heap[(i - 1) / 2] < heap[i]) {
         // Swap the current node with its parent
         int temp = heap[i];
         heap[i] = heap[(i - 1) / 2];
         heap[(i - 1) / 2] = temp;
-
-        // Move to the parent level
         i = (i - 1) / 2;
 }}
 
@@ -34,15 +30,10 @@ void insertMin(int *heap,int *size,int val){
     int i = *size;
     heap[i] = val;
     (*size)++;
-
-    // Adjust the heap by comparing the new value with its parent
     while (i > 0 && heap[(i - 1) / 2] > heap[i]) {
-        // Swap the current node with its parent
         int temp = heap[i];
         heap[i] = heap[(i - 1) / 2];
         heap[(i - 1) / 2] = temp;
-
-        // Move to the parent level
         i = (i - 1) / 2;
 }}
 

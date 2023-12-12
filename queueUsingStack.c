@@ -24,14 +24,8 @@ int pop(int* arr,int* top) {
 }
 
 void enqueue(int* arr,int size,int* stack1,int* stack2,int data){
-    if(front==-1 && rear==-1){
-        front++;
-        push(stack1,&top1,size,data);
-    }else if(rear==size-1){
-        printf("Queue is full");
-    }else{
-        rear++;
-        push(stack1,&top1,size,data);
+    while(top1!=-1){
+        push
     }
 }
 
