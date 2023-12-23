@@ -1,98 +1,66 @@
 #include<stdio.h>
 #include<stdlib.h>
-int f1=-1,f2=-1;
-int r1=-1,r2=-1;
 
-void enqueue1(int* queue1,int size,int data){
-    if (r1 == size - 1) {
-        printf("Queue1 is full.\n");
-    }
-    else {
-        if (f1 == -1) {
-            f1 = 0;
+int f1 = -1, r1 = -1;
+int f2 = -1, r2 = -1;
+
+void enqueue(int* queue, int size, int data, int* f, int* r) {
+    if (*r == size - 1) {
+        printf("Queue is full.\n");
+    } else {
+        if (*f == -1) {
+            *f = 0;
         }
-        queue1[++r1] = data;
+        queue[++(*r)] = data;
     }
 }
-
-void enqueue2(int*queue2,int size,int data) {
-    if (r2 == size - 1) {
-        printf("Queue2 is full.\n");
-    }
-    else {
-        if (f2 == -1) {
-            f2 = 0;
-        }
-        queue2[++r2] = data;
-    }
-}
-
-int dequeue1(int *queue1) {
-    if (f1 == -1) {
-        printf("Queue1 is empty.\n");
-        return -1;
-    }
-    else {
-        int data = queue1[f1];
-        if (f1 == r1) {
-            f1 = r1 = -1;
-        }
-        else {
-            f1++;
-        }
-        return data;
-    }
-}
-
-int dequeue2(int*queue2) {
-    if (f2 == -1) {
-        printf("Queue2 is empty.\n");
+int dequeue(int* queue, int* f, int* r) {
+    if (*f == -1) {
+        printf("Queue is empty.\n");
         return -1;
     } else {
-        int data = queue2[f2];
-        if (f2 == r2) {
-            f2 = r2 = -1;
-        }
-        else {
-            f2++;
+        int data = queue[*f];
+        if (*f == *r) {
+            *f = *r = -1;
+        } else {
+            (*f)++;
         }
         return data;
     }
 }
 
-void push(int*queue1,int size,int data) {
-    enqueue1(queue1,size,data);
+void push(int* queue, int size, int data) {
+    enqueue(queue, size, data, &f1, &r1);
 }
 
-int pop(queue1,queue2,size) {
+int pop(int* queue1, int* queue2, int size) {
     if (f1 == -1) {
         printf("Stack is empty.\n");
         return -1;
     }
 
     while (f1 != r1) {
-        enqueue2(queue2,size,dequeue1(queue1));
+        enqueue(queue2, size, dequeue(queue1, &f1, &r1), &f2, &r2);
     }
 
-    int popped = dequeue1(queue1);
+    int popped = dequeue(queue1, &f1, &r1);
 
     while (f2 != -1) {
-        enqueue1(queue1,size,dequeue2(queue2));
+        enqueue(queue1, size, dequeue(queue2, &f2, &r2), &f1, &r1);
     }
 
     return popped;
 }
 
-
-void printStack(int*queue1) {
-    if (f1 == -1) {
+void printStack(int* queue, int f, int r) {
+    if (f == -1) {
         printf("Stack is empty.\n");
         return;
     }
 
     printf("Stack: ");
-    for (int i = f1; i <= r1; i++) {
-        printf("%d ", queue1[i]);
+    for (int i = f; i <= r; i++) {
+        printf("%d ", queue[i]);
     }
     printf("\n");
 }
@@ -100,14 +68,16 @@ void printStack(int*queue1) {
 int main(){
     int n;
     printf("Enter the number of elements in the array:");
-    scanf("%d",&n);
-    int *arr1=(int*)malloc(sizeof(int)*n);
-    int *arr2=(int*)malloc(sizeof(int)*n);
-    push(arr1,n,10);
-    push(arr1,n,20);
-    push(arr1,n,30);
-    push(arr1,n,40);
-    pop(arr1,arr2,n);
-    pop(arr1,arr2,n);
-    printStack(arr1);
+    scanf("%d", &n);
+    int* arr1 = (int*)malloc(sizeof(int) * n);
+    int* arr2 = (int*)malloc(sizeof(int) * n);
+    push(arr1, n, 10);
+    push(arr1, n, 20);
+    push(arr1, n, 30);
+    push(arr1, n, 40);
+    pop(arr1, arr2, n);
+    pop(arr1, arr2, n);
+    printStack(arr1, f1, r1);
+    free(arr1);
+    free(arr2);
 }

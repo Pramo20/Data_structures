@@ -21,8 +21,8 @@ void BFS(int G[][7], int start,int n){
     }
 }
 
-// DSF
-void DSF(int G[][7], int start,int n){
+// DFS
+void DFS(int G[][7], int start,int n){
     int i=start,j; 
     int visited[7]={0};
     printf("%d ",i);
@@ -40,6 +40,23 @@ void DSF(int G[][7], int start,int n){
     }
 }
 
+// Topological sort
+void Topo(int G[][7], int start,int n){
+    static int visited[7]={0};
+    int j;
+    if(visited[start]==0){
+        printf("%d ",start);
+        visited[start]=1;
+        for(j=1;j<n;j++){
+            if(G[start][j]==1 && visited[j]==0){
+                Topo(G,j,n);
+            }
+        }
+    }
+}
+
+
+
 int main(){
     int G[7][7]={{0,0,0,0,0,0,0},
                  {0,0,1,1,0,0,0},
@@ -48,8 +65,20 @@ int main(){
                  {0,0,1,1,0,1,1},
                  {0,0,0,0,1,0,0},
                  {0,0,0,0,1,0,0}};
+    // DAG graph
+    int G2[7][7]={{0,0,0,0,0,0,0},
+                 {0,0,1,1,0,0,0},
+                 {0,0,0,0,1,0,0},
+                 {0,0,0,0,1,0,0},
+                 {0,0,0,0,0,1,1},
+                 {0,0,0,0,0,0,0},
+                 {0,0,0,0,0,0,0}};
+    printf("BSF: ");
     BFS(G,4,7);
     printf("\n");
-    DSF(G,5,7);
+    printf("DSF: ");
+    DFS(G,5,7);
+    printf("\nTopological sort:");
+    Topo(G2,1,7);
     return 0;
 }

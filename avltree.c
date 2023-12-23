@@ -106,7 +106,7 @@ struct node* Insert(struct node* p, int data){
         return t;
         
     }
-    if(dat a< p->data){
+    if(data< p->data){
         p->left=Insert(p->left,data);
     }else if(data > p->data){
         p->right=Insert(p->right,data);
@@ -135,7 +135,49 @@ void Inorder(struct node* p){
         Inorder(p->right);
     }
 }
-
+// function to delete a node
+struct node* Delete(struct node* p,int key){
+    struct node* q;
+    if(p==NULL){
+        return NULL;
+    }
+    if(p->left==NULL && p->right==NULL){
+        if(p==root){
+            root=NULL;
+        }
+        free(p);
+        return NULL;
+    }
+    if(key < p->data){
+        p->left=Delete(p->left,key);
+    }else if(key > p->data){
+        p->right=Delete(p->right,key);
+    }else{
+        if(NodeHeight(p->left)>NodeHeight(p->right)){
+            q=InPre(p->left);
+            p->data=q->data;
+            p->left=Delete(p->left,q->data);
+        }else{
+            q=InSucc(p->right);
+            p->data=q->data;
+            p->right=Delete(p->right,q->data);
+        }
+    }
+    p->height=NodeHeight(p);
+    if(BalanceFactor(p)==2 && BalanceFactor(p->left)==1){
+        return LLRotation(p);
+    }
+    else if(BalanceFactor(p)==2 && BalanceFactor(p->left)==-1){
+        return LRRotation(p);
+    }
+    else if(BalanceFactor(p)==-2 && BalanceFactor(p->right)==-1){
+        return RRRotation(p);
+    }
+    else if(BalanceFactor(p)==-2 && BalanceFactor(p->right)==1){
+        return RLRotation(p);
+        }
+    return p;
+}
 int main(){
     root=Insert(root,10);
     Insert(root,5);

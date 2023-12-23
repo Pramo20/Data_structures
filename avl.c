@@ -31,7 +31,6 @@ int getBF(struct node* n){
     return getHeight(n->left)-getHeight(n->right);
 }
 
-
 struct node* leftRotate(struct node* z){
     struct node* y=z->right;
     struct node* t2=y->left;

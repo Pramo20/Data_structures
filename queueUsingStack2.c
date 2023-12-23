@@ -3,40 +3,35 @@
 
 int top1 = -1;
 int top2 = -1;
-int front = -1;
-int rear = -1;
 
-
-void push(int* stack,int** top,int size,int data) {
+void push(int* stack, int* top, int size, int data) {
     if (*top == size - 1) {
         printf("\nOverflow");
     } else {
-        ++(*top);
-        arr[*top] = data;
+        stack[++(*top)] = data;
     }
 }
 
-int pop(int* stack, int size,int** top) {
+int pop(int* stack, int* top) {
     if (*top == -1) {
         printf("\nUnderflow");
         return -1; // Return some default value indicating underflow
     } else {
-        return arr[(*top)--];
+        return stack[(*top)--];
     }
 }
 
-void enqueue(int* stack1, int* stack2, int data) {
-    while(top1!=-1){
-        push(stack2,&top2,size,pop(stack1,&top1));
+void enqueue(int* stack1, int* stack2, int size, int data) {
+    while (top1 != -1) {
+        push(stack2, &top2, size, pop(stack1, &top1));
     }
-    push(stack1,&top1,size,data);
-    while(top2!=-1){
-        push(stack1,&top1,size,pop(stack2,&top2));
+    push(stack1, &top1, size, data);
+    while (top2 != -1) {
+        push(stack1, &top1, size, pop(stack2, &top2));
     }
-    
 }
 
-void dequeue(int* stack1, int* stack2) {
+void dequeue(int* stack1, int* stack2, int size) {
     if (top2 == -1) {
         while (top1 != -1) {
             int data = pop(stack1, &top1);
@@ -48,7 +43,6 @@ void dequeue(int* stack1, int* stack2) {
         printf("\nQueue is empty");
     } else {
         pop(stack2, &top2);
-        rear--;
     }
 }
 
@@ -61,18 +55,27 @@ void display(int* stack, int top) {
             printf("%d\t", stack[i]);
         }
     }
-    
 }
 
 int main() {
-    enqueue(s1,s2,1);
-    enqueue(s1,s2,2);
-    enqueue(s1,s2,3);
-    enqueue(s1,s2,4);
-    enqueue(s1,s2,5);
-    dequeue(s1,s2);
-    dequeue(s1,s2);
-    dequeue(s1,s2);
-    display(s1,top1);
-    display(s2,top2);
+    printf("Enter the size of stacks:");
+    int size;
+    scanf("%d", &size);
+    int* s1 = (int*)malloc(size * sizeof(int));
+    int* s2 = (int*)malloc(size * sizeof(int));
+    enqueue(s1, s2, size, 1);
+    enqueue(s1, s2, size, 2);
+    enqueue(s1, s2, size, 3);
+    enqueue(s1, s2, size, 4);
+    enqueue(s1, s2, size, 5);
+    display(s1, top1);
+    display(s2, top2);
+    dequeue(s1, s2, size);
+    dequeue(s1, s2, size);
+    dequeue(s1, s2, size);
+    display(s1, top1);
+    display(s2, top2);
+
+    free(s1);
+    free(s2);
 }

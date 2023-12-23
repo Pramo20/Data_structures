@@ -39,13 +39,10 @@ int dequeue() {
     }
 
     struct element highestPriority = pr[index];
-
-    for (int i = index; i < size; i++) {
-        pr[i] = pr[i + 1];
-    }
-    size--; 
+    pr[index] = pr[size--]; // Replace with the last element and decrement size
     return highestPriority.value;
 }
+
 void display()
 {
     if(size == -1)

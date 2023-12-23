@@ -130,10 +130,11 @@ int dequeue() {
 // Function to print the elements in the queue
 void displayQueue() {
     struct Node* temp = front;
-    while (temp != NULL) {
+    while (temp != rear) {
         printf("%d ", temp->data);
         temp = temp->next;
     }
+    printf("%d", rear->data);
     printf("\n");
 }
 
